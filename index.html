@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Landskapsmesteren utkast</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        * {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        img {
+            inline-size: 400px;
+            object-fit: cover;
+            display: block;
+            margin: 0 auto;
+            width: 50%;
+        }
+
+        .walk img {
+            height: 140px;
+        }
+
+        .mockUp {
+            display: grid;
+            grid-template-rows: 80px 1fr 100px;
+        }
+
+        .Upper {
+            display: grid;
+            grid-template-rows: 20px 50px;
+        }
+
+        .LowerMain {
+            display: grid;
+            grid-template-rows: 1fr 100px 1.4fr 1.4fr;
+        }
+
+        .span {
+            display: grid;
+            grid-template-columns: 100px repeat(3, 100px) 1fr repeat(3, 33px);
+            gap: 10px;
+        }
+
+        .span>div {
+            height: 50px;
+            align-content: center;
+        }
+
+        .span>div>* {
+            cursor: pointer;
+            transition-duration: 0.13s;
+        }
+
+        .span>div>span:hover {
+            color: #8ab355;
+        }
+
+        .span>div>span:active {
+            color: #496b21;
+        }
+
+        .abonn {
+            grid-template-columns: 1.4fr 160px 120px 3fr;
+            align-items: center;
+        }
+
+        .abonn>div>*,
+        .abonn * {
+            cursor: default;
+        }
+
+        .abonn>div:nth-child(2) {
+            font-size: 1.6rem;
+        }
+
+        .abonn>div:nth-child(3) {
+            font-size: .9rem;
+            text-align: center;
+        }
+
+        .abonn input {
+            background-color: #e0e0e0;
+            border-radius: 50px;
+            padding: 20px;
+            cursor: text;
+        }
+
+        .abonn input[type=text] {
+            width: 280px;
+        }
+
+        .abonn input[type=submit] {
+            cursor: pointer;
+        }
+
+        .nav img {
+            width: 80px;
+        }
+
+        .mainLogo {
+            border-bottom: 1px solid black;
+        }
+
+        .mainLogo img {
+            width: 70%;
+        }
+
+        .content {
+            margin: 0 auto;
+            width: 90%;
+            text-align: center;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 6px;
+        }
+
+        .content>div {
+            background-color: #688d8d;
+            border-radius: 6px;
+            width: 100%;
+            height: 40px;
+        }
+
+        .content img {
+            width: 100%;
+            height: 310px;
+            border-radius: 5px;
+            object-fit: cover;
+        }
+
+        .content>div>div:nth-child(2) {
+            background-color: white;
+            padding: 10px;
+        }
+
+        .dyrkningsSide .bannerImg {
+            width: 90%;
+            height: 300px;
+            margin-top: 20px;
+        }
+
+        .shop {
+            cursor: pointer;
+        }
+
+        .dyrkningsSide .griddy {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            text-align: center;
+            align-items: center;
+            width: 80%;
+            gap: 20px;
+            margin: 30px auto;
+        }
+
+        .griddy>div {
+            border: solid silver 2px;
+            border: solid silver 2px;
+            border-radius: 4px;
+            height: 230px;
+            cursor: pointer;
+            background-image: linear-gradient(#b1cfcd, #bee4c1, #f3fffb);
+        }
+
+        .raineffect {
+            position: absolute;
+            z-index: -1;
+            width: 90%;
+            top: 25px;
+            left: 5%;
+        }
+
+        .productPage {
+            margin-left: 30%;
+            margin-top: 30px;
+            display: grid;
+            grid-template-columns: 260px 300px;
+        }
+
+        .productList {
+            height: 340px;
+            border: #4b8b83 solid 2px;
+            padding: 20px;
+            display: grid;
+            grid-template-rows: 1fr 4fr 1fr;
+
+            h4  {
+                padding: 0; margin: 0; text-align: left;
+            }
+        }
+
+        .productMan img {
+            inline-size: 400px;
+        }
+        .productMan {
+            z-index: -100;
+            margin-left: -250px;
+        }
+
+        .productList button {
+            border-radius: 20px;
+        }
+
+        .productList .button {
+            color: #5a9e95;
+        }
+
+        .productList .button:hover {
+            filter: brightness(1.3);
+            cursor: pointer;
+        }
+
+        .productList .button:active {
+            filter: brightness(1.9);
+        }
+
+        .actualList {
+            overflow-y: scroll;
+        }
+
+        .actualList>div {
+            display: grid;
+            grid-template-columns: 20px 1fr 10px;
+            width: 200px;
+        }
+
+        .raineffect img {
+            width: 90%;
+        }
+
+        .ingOppGrid2try {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            width: 70%;
+            border: #9c9c9c 1px solid;
+            border-radius: 30px;
+            padding: 10px;
+            margin: 0 auto;
+            gap: 5px;
+        }
+
+        .indOppGrid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            grid-template-rows: repeat(3, 20px) 1fr;
+            width: 70%;
+            height: 50vw;
+            border: #9c9c9c 1px solid;
+            border-radius: 30px;
+            padding: 10px;
+            margin: 0 auto;
+            gap: 5px;
+        }
+
+        .ingOppGrid2try>div {
+            padding: 20px;
+        }
+
+        .item_1 {
+            border: #c2c2c2 1px solid;
+            border-radius: 20px;
+            min-height: 480px;
+            background-image: linear-gradient(to bottom left, #406e6a, #6fafa1, #acd893,#d2dfc8);
+        }
+
+        .shop {
+            filter: saturate(1.8);
+        }
+
+        .top {
+            text-align: center;
+            width: 100%;
+        }
+
+        .bottom .demands {
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .bottom>div {
+            padding-bottom: 30px;
+        }
+
+        .minH {
+            min-height: 500px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="mockUp">
+            <!--HEAD-->
+            <div class="Upper">
+                <div class="top">Tilbake til hovedsiden</div>
+                <div class="span nav">
+                    <div v-html="imgs.mini_logo.whole"
+                        @click="pages.videre = false; pages.main = true; main.shoppy = false; pages.shop_dyrkning = false; pages.shop_hage = false; pages.individualITem = false;">
+                    </div>
+                    <div>
+                        <span
+                            @click="pages.main = false; pages.shop_hage = false; pages.shop_dyrkning = true; pages.shoppy = false; pages.videre = false; pages.individualITem = false;">
+                            Dyrkningssett
+                        </span>
+                    </div>
+                    <div>
+                        <span
+                            @click="pages.main = false; pages.shop_hage = true; pages.shop_dyrkning = false; pages.shoppy = false; pages.videre = false; pages.individualITem = false;">
+                            Hage & Plen
+                        </span>
+                    </div>
+                    <div><span>Kontakt</span></div>
+                    <div></div>
+                    <div><span>🔎︎</span></div>
+                    <div><span>𖨆</span></div>
+                    <div
+                        @click="pages.main = false; pages.shop_dyrkning = false; pages.shop_hage = false; pages.shoppy = true; pages.videre = false; pages.individualITem = false;">
+                        <span>𖠩</span>
+                    </div>
+                    <!--<div v-html="imgs.additional_logos.whole"></div>-->
+                </div>
+            </div>
+            <!--MAIN-->
+            <div class="minH">
+                <div class="LowerMain" v-if="pages.main">
+                    <div v-html="imgs.main_logo.whole" class="mainLogo"></div>
+                    <div class="span abonn">
+                        <div></div>
+                        <div><b>Abonnér på nyhetsbrev!</b></div>
+                        <div><u><b>10% rabatt</b></u> på første bestilling!</div>
+                        <div>
+                            <input type="text" placeholder="Epostadresse">
+                            <input type="submit" value="->">
+                        </div>
+                    </div>
+                    <div class="content">
+                        <div class="shop shop1"
+                            @click="pages.main = false; pages.shop_dyrkning = true; pages.shop_hage = false; pages.shoppy = false; pages.videre = false; pages.individualITem = false;">
+                            <div v-html="imgs.shops.dyrkning.whole"></div>
+                            <div>Dyrkning</div>
+                        </div>
+                        <div class="shop shop2"
+                            @click="pages.main = false; pages.shop_hage = true; pages.shop_dyrkning = false; pages.shoppy = false; pages.videre = false; pages.individualITem = false;">
+                            <div v-html="imgs.shops.hage.whole"></div>
+                            <div>Hage</div>
+                        </div>
+                    </div>
+                </div>
+                <div v-else-if="pages.shoppy">
+                    <div>
+                        <div class="productPage">
+                            <div class="productList">
+                                <div>
+                                    <h4>Produkter</h4>
+                                </div>
+                                <div class="actualList">
+                                    <div v-if="productlist.length <= 0"><div></div><div>
+                                        <i>Ingen produkter lagt til ennå</i>
+                                    </div></div>
+                                    <div v-for="item in productlist">
+                                        <div>
+                                            ⚬
+                                        </div>
+                                        <div>
+                                            {{item.name}}#{{item.id}}
+                                        </div>
+                                        <div>
+                                            <button @click="addItem(item)">+</button> <button @click="removeItem(item.id)">
+                                                -
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="button">
+                                    Checkout <button>-></button>
+                                </div>
+                            </div>
+                            <div class="productMan">
+                                <img src="assets\animation\plantemester_Clip_002_trilleS_tillu2.png"
+                                    alt="Mann m trillebår, gjennomsiktig bg">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div v-else-if="pages.videre">
+                    <img src="assets\animation\plantemester_Clip_002_trillegå2.gif"
+                        alt="Figur med trillebår_tenkende animasjon">
+                </div>
+                <div v-else-if="pages.shop_dyrkning" class="dyrkningsSide">
+                    <div>
+                        <img src="assets\animation\plantemester_Clip_002_banner03.gif"
+                            alt="Banner_grønne planter med dugg og vanndråper" class="bannerImg">
+                    </div>
+                    <div class="griddy">
+                        <div v-for="(item, index) in oppsett" v-if="index >= 0 && item.genre == 'dyrking'"
+                            @click="pages.individualITem = true; pages.main = false; pages.shop_dyrkning = false; pages.shop_hage = false; pages.shoppy = false; pages.videre = false; setCurrentInd(item)">
+                            <div>
+                                Oppsett
+                                <br />
+                                <i>(item# {{index}})</i>
+                                <br />
+                                {{item.name}}
+                            </div>
+                        </div>
+                    </div>
+                    <div v-if="!bildeUnClicked2" class="raineffect">
+                        <img src="assets\animation\plantemester_Clip_001.gif" alt="regn">
+                    </div>
+                </div>
+                <div v-else-if="pages.shop_hage" class="dyrkningsSide">
+                    <div>
+                        <img src="assets\reference_resources\still2.png"
+                            alt="Hagearbeidikon, stort (ett tre og en spade)" class="bannerImg">
+                    </div>
+                    <div class="griddy">
+                        <div v-for="(item, index) in oppsett" v-if="index >= 0 && item.genre == 'hage'"
+                            @click="pages.individualITem = true; pages.main = false; pages.shop_dyrkning = false; pages.shop_hage = false; pages.shoppy = false; pages.videre = false; setCurrentInd(item)">
+                            <div>
+                                Oppsett
+                                <br />
+                                <i>(item# {{index}})</i>
+                                <br />
+                                {{item.name}}: {{item.genre}}
+                            </div>
+                        </div>
+                    </div>
+                    <div v-if="!bildeUnClicked2" class="raineffect">
+                        <img src="assets\animation\plantemester_Clip_001.gif" alt="regn">
+                    </div>
+                </div>
+                <div v-else-if="pages.individualITem" class="ingOppGrid2try">
+                    <div class="item_1">
+                        ( Item picture )
+                    </div>
+                    <div class="item_2">
+                        <div>
+                            {{current_ind.name}} {{current_ind.id}}
+                        </div>
+                        <div>
+                            <div>
+                                <hr />
+                            </div>
+                            <div class="LeggIHandleKurv">
+                                <button @click="productlist.push(current_ind); melding()">+</button> Legg til i handlekurven
+                            </div>
+                        </div>
+                        <div>
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                                incididunt ut
+                                labore et dolore magna aliqua.
+                            </p>
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                                incididunt ut
+                                labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                                ullamco
+                                laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit
+                                in
+                                voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+                                cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                            </p>
+                            <p>
+                                <b>Les mer i nyhetsbrevet! ⮞</b>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--FOOTER-->
+            <div class="bottom">
+                <div class="demands">
+                    <div>
+                        <h4>
+                            Vilkår og betingelser
+                        </h4>
+                    </div>
+                    <div>Personvernerklæring</div>
+                    <div>Retningslinjer for frakt</div>
+                    <div>Instillinger for informasjonskapsler</div>
+                </div>
+                <div>
+                    <a href="https://shop.landskapsmesteren.no/">© 2026 Landskapsmesteren Webshop - Org. nr: 925 923
+                        257</a>
+                </div>
+                <br />
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            lala: false,
+            imgs: {
+                main_logo: { whole: `<img src="assets/reference_resources/Screenshot 2026-03-23 084607_MAIN.png" alt="mainLogo">` },
+                mini_logo: { whole: `<img src="assets/reference_resources/Screenshot 2026-03-23 084607_logo.png" alt="miniLogo">` },
+                additional_logos: { whole: `<img src="assets/reference_resources/Screenshot 2026-03-23 084607_logosMini.png" alt="miniLogos">` },
+                shops: {
+                    dyrkning: { whole: `<img src="assets/reference_resources/still1.png" alt="dyrkningsbilde">` },
+                    hage: { whole: `<img src="assets/reference_resources/still2.png" alt="hage">` },
+                }
+            },
+            pages: {
+                main: true,
+                shop_dyrkning: false,
+                shop_hage: false,
+                shoppy: false,
+                individualITem: false
+            },
+            oppsett: {
+                1: {
+                    id: 1,
+                    genre: "dyrking",
+                    name: "tomat"
+                },
+                2: {
+                    id: 2,
+                    genre: "hage",
+                    name: "jordbær"
+                },
+                3: {
+                    id: 3,
+                    genre: "dyrking",
+                    name: "jordbær"
+                },
+                4: {
+                    id: 4,
+                    genre: "hage",
+                    name: "tomat"
+                },
+                5: {
+                    id: 5,
+                    genre: "dyrking",
+                    name: "tomat"
+                },
+                6: {
+                    id: 6,
+                    genre: "hage",
+                    name: "tomat"
+                },
+                7: {
+                    id: 7,
+                    genre: "dyrking",
+                    name: "tomat"
+                },
+                8: {
+                    id: 8,
+                    genre: "hage",
+                    name: "tomat"
+                },
+                9: {
+                    id: 9,
+                    genre: "dyrking",
+                    name: "gresskar"
+                },
+                10: {
+                    id: 10,
+                    genre: "hage",
+                    name: "gresskar"
+                },
+                11: {
+                    id: 11,
+                    genre: "dyrking",
+                    name: "gresskar"
+                },
+                12: {
+                    id: 12,
+                    genre: "hage",
+                    name: "gresskar"
+                },
+                13: {
+                    id: 13,
+                    genre: "dyrking",
+                    name: "gresskar"
+                },
+                14: {
+                    id: 14,
+                    genre: "hage",
+                    name: "gress"
+                },
+                15: {
+                    id: 15,
+                    genre: "dyrking",
+                    name: "gress"
+                },
+                16: {
+                    id: 16,
+                    genre: "hage",
+                    name: "gress"
+                },
+                17: {
+                    id: 17,
+                    genre: "dyrking",
+                    name: "turnip"
+                },
+                18: {
+                    id: 18,
+                    genre: "hage",
+                    name: "turnip"
+                },
+                19: {
+                    id: 19,
+                    genre: "dyrking", name: "turnip"
+                },
+                20: {
+                    id: 20,
+                    genre: "dyrking", name: "mynte"
+                },
+                21: {
+                    id: 21,
+                    genre: "dyrking", name: "mynte"
+                },
+                22: {
+                    id: 22,
+                    genre: "dyrking", name: "mynte"
+                },
+                23: {
+                    id: 23,
+                    genre: "dyrking", name: "mynte"
+                },
+                24: {
+                    id: 24,
+                    genre: "dyrking", name: "jordbær"
+                },
+                25: {
+                    id: 25,
+                    genre: "dyrking", name: "jordbær"
+                },
+                26: {
+                    id: 26,
+                    genre: "dyrking", name: "mynte"
+                },
+                27: {
+                    id: 27,
+                    genre: "dyrking", name: "koriander"
+                }
+            },
+            /*
+            oppsett: {
+                object_1 : {
+                    plant: "tomat",
+                    description: "høy",
+                    name: "White F1",
+                    brand: "Krebs",
+                    price: 129.00,
+                    genre: "dyrkning",
+                    availability: true
+                }
+            },
+            brands: {
+                Krebs: {name: "Krebs"},
+                NelsonGarden: {name: "Nelson Garden"}
+            }
+            */
+            productlist: [],
+            current_ind: {
+                id: 1,
+                name: "no name",
+                genre: "whatever!"
+            },
+            bildeUnClicked: true,
+            bildeUnClicked2: true
+        },
+        methods: {
+            createHtml(parm) {
+                return `<img src="${parm.link}" alt="${parm.alias}">`
+            },
+            changePages(parmPage = this.pages.main) {
+                const gg = [];
+                Object.entries(pages).forEach(([key, value]) => {
+                    gg.push(value);
+                    value = false;
+                    if (parmPage == value) value = true;
+                });
+                parmPage = true;
+                console.log(gg)
+            },
+            setCurrentInd(indoppsettParm) {
+                this.current_ind = indoppsettParm;
+            },
+            addThing() {
+                console.log("Added??");
+            },
+            removeItem(itemId) {
+                const index = this.productlist.findIndex(product => product.id == itemId);
+
+                if (index >= 0) this.productlist.splice(index, 1);
+            },
+            addItem(item){
+                this.productlist.push(item);
+            },
+            ind_oppsett_1() {
+                return /*HTML*/ `
+                    <div class="ind_image">
+                        ( Item picture )
+                    </div>
+                    <div class="ind">
+                        ${this.current_ind.name} ${this.current_ind.id}
+                    </div>
+                `;
+            },
+            ind_oppsett_2() {
+                return /*HTML*/ `
+                    <div>
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.    
+                        </p>
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                        </p>
+                        <p>
+                            <b>Les mer i nyhetsbrevet! ⮞</b>
+                        </p>
+                    </div>
+                `;
+            },
+            ind_oppsett_0() {
+                return /*HTML*/ `
+                    <div>
+                        ( Item picture )
+                    </div>
+                    <div>
+                        ${this.current_ind.name} ${this.current_ind.id}
+                    </div>
+                    <div>
+                        <hr/>
+                    </div>
+                    <div>
+                        <button>+</button> Legg til i handlekurven
+                    </div>
+                    <div>
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.    
+                        </p>
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                        </p>
+                        <p>
+                            <b>Les mer i nyhetsbrevet! ⮞</b>
+                        </p>
+                    </div>
+                `;
+            },
+            melding() {
+                document.getElementsByClassName("LeggIHandleKurv")[0].innerHTML += `! Produkt har blitt lagt til`;
+            }
+        }
+    })
+</script>
+
+</html>
