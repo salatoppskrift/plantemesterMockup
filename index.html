@@ -174,8 +174,7 @@
         }
 
         .productPage {
-            margin-left: 30%;
-            margin-top: 30px;
+            margin: 80px 30%;
             display: grid;
             grid-template-columns: 260px 300px;
         }
@@ -284,9 +283,6 @@
             padding-bottom: 30px;
         }
 
-        .minH {
-            min-height: 500px;
-        }
     </style>
 </head>
 
@@ -324,7 +320,7 @@
                 </div>
             </div>
             <!--MAIN-->
-            <div class="minH">
+            <div>
                 <div class="LowerMain" v-if="pages.main">
                     <div v-html="imgs.main_logo.whole" class="mainLogo"></div>
                     <div class="span abonn">
@@ -609,7 +605,7 @@
                 },
                 20: {
                     id: 20,
-                    genre: "dyrking", name: "mynte"
+                    genre: "dyrking", name: "koriander"
                 },
                 21: {
                     id: 21,
@@ -634,10 +630,6 @@
                 26: {
                     id: 26,
                     genre: "dyrking", name: "mynte"
-                },
-                27: {
-                    id: 27,
-                    genre: "dyrking", name: "koriander"
                 }
             },
             /*
